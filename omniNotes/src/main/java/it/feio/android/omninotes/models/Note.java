@@ -20,12 +20,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import it.feio.android.omninotes.commons.models.BaseCategory;
 import it.feio.android.omninotes.commons.models.BaseNote;
+import sapphire.app.SapphireObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Note extends BaseNote implements Parcelable {
+public class Note extends BaseNote implements Parcelable, SapphireObject {
 
     // Not saved in DB
     private boolean passwordChecked = false;

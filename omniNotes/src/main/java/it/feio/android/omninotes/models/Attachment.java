@@ -20,11 +20,12 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import it.feio.android.omninotes.commons.models.BaseAttachment;
+import sapphire.app.SapphireObject;
 
 import java.util.Calendar;
 
 
-public class Attachment extends BaseAttachment implements Parcelable {
+public class Attachment extends BaseAttachment implements Parcelable, SapphireObject {
 
 	private Uri uri;
 

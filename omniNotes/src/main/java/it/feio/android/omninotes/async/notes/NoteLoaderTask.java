@@ -23,8 +23,11 @@ import it.feio.android.omninotes.async.bus.NotesLoadedEvent;
 import it.feio.android.omninotes.db.DbHelper;
 import it.feio.android.omninotes.models.Note;
 import it.feio.android.omninotes.utils.Constants;
+import sapphire.kernel.server.KernelServer;
+import sapphire.kernel.server.KernelServerImpl;
 
 import java.lang.reflect.Method;
+import java.net.InetSocketAddress;
 import java.util.ArrayList;
 
 
@@ -52,6 +55,31 @@ public class NoteLoaderTask extends AsyncTask<Object, Void, ArrayList<Note>> {
 
 	@Override
 	protected ArrayList<Note> doInBackground(Object... params) {
+		if (KernelServerImpl.oms == null) {
+			// start KS
+			String hardcodedArgs[] = {
+					"127.0.0.1",
+					"22345",
+					"127.0.0.1",
+					"22343"
+			};
+			// KernelServerImpl.main(hardcodedArgs);
+			try {
+				KernelServerImpl server = new KernelServerImpl(
+						new InetSocketAddress("127.0.0.1", 22345),
+						new InetSocketAddress("10.0.2.2", 22343));
+				KernelServer stub = (KernelServer) java.rmi.server.UnicastRemoteObject.exportObject(server, 0);
+				java.rmi.registry.Registry registry = java.rmi.registry.LocateRegistry.createRegistry(Integer.parseInt(hardcodedArgs[1]));
+				registry.rebind("SapphireKernelServer", stub);
+				KernelServerImpl.oms.registerKernelServer(
+						new InetSocketAddress("127.0.0.1", 22345));
+				System.out.println("Server ready!");
+				server.getMemoryStatThread().start();
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+
 
 		ArrayList<Note> notes = new ArrayList<>();
 		String methodName = params[0].toString();

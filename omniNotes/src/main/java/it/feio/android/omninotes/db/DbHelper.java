@@ -35,6 +35,8 @@ import java.io.IOException;
 import java.util.*;
 import java.util.regex.Pattern;
 
+import static sapphire.runtime.Sapphire.new_;
+
 
 public class DbHelper extends SQLiteOpenHelper {
 
@@ -464,7 +466,7 @@ public class DbHelper extends SQLiteOpenHelper {
             if (cursor.moveToFirst()) {
                 do {
                     int i = 0;
-                    Note note = new Note();
+                    Note note = (Note) new_(Note.class);
                     note.setCreation(cursor.getLong(i++));
                     note.setLastModification(cursor.getLong(i++));
                     note.setTitle(cursor.getString(i++));
@@ -487,12 +489,12 @@ public class DbHelper extends SQLiteOpenHelper {
                     }
 
                     // Set category
-					long categoryId = cursor.getLong(i++);
-					if (categoryId != 0) {
-						Category category = new Category(categoryId, cursor.getString(i++),
-								cursor.getString(i++), cursor.getString(i++));
-						note.setCategory(category);
-					}
+                    long categoryId = cursor.getLong(i++);
+                    if (categoryId != 0) {
+                        Category category = new Category(categoryId, cursor.getString(i++),
+                                cursor.getString(i++), cursor.getString(i++));
+                        note.setCategory(category);
+                    }
 
                     // Add eventual attachments uri
                     note.setAttachmentsList(getNoteAttachments(note));
@@ -502,7 +504,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
                 } while (cursor.moveToNext());
             }
-
+        }catch (Exception e){
+            Log.v(Constants.TAG, e.toString());
         } finally {
             if (cursor != null)
                 cursor.close();
