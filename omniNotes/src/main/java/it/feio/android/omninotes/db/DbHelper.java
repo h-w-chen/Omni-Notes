@@ -30,6 +30,8 @@ import it.feio.android.omninotes.OmniNotes;
 import it.feio.android.omninotes.async.upgrade.UpgradeProcessor;
 import it.feio.android.omninotes.models.*;
 import it.feio.android.omninotes.utils.*;
+import sapphire.app.SapphireObject;
+import sapphire.runtime.Sapphire;
 
 import java.io.IOException;
 import java.util.*;
@@ -38,7 +40,7 @@ import java.util.regex.Pattern;
 import static sapphire.runtime.Sapphire.new_;
 
 
-public class DbHelper extends SQLiteOpenHelper {
+public class DbHelper extends SQLiteOpenHelper implements SapphireObject {
 
     // Database name
     private static final String DATABASE_NAME = Constants.DATABASE_NAME;
@@ -105,13 +107,13 @@ public class DbHelper extends SQLiteOpenHelper {
 
 	public static synchronized DbHelper getInstance(Context context) {
         if (instance == null) {
-            instance = new DbHelper(context);
+            instance = (DbHelper) new_(DbHelper.class, context);
         }
         return instance;
     }
 
-
-    private DbHelper(Context mContext) {
+    // TODO: to find another better way to handle the singleton vs New_ problem
+    public DbHelper(Context mContext) {
         super(mContext, DATABASE_NAME, null, DATABASE_VERSION);
         this.mContext = mContext;
         this.prefs = mContext.getSharedPreferences(Constants.PREFS_NAME, Context.MODE_MULTI_PROCESS);
