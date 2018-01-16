@@ -72,6 +72,7 @@ public class NoteLoaderTask extends AsyncTask<Object, Void, ArrayList<Note>> {
 				java.rmi.registry.Registry registry = java.rmi.registry.LocateRegistry.createRegistry(Integer.parseInt(hardcodedArgs[1]));
 				registry.rebind("SapphireKernelServer", stub);
 				KernelServerImpl.oms.registerKernelServer(
+						// 10.0.2.15?
 						new InetSocketAddress("127.0.0.1", 22345));
 				System.out.println("Server ready!");
 				server.getMemoryStatThread().start();
