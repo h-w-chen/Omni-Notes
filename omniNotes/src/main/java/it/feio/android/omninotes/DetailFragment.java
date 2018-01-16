@@ -112,6 +112,7 @@ import java.util.List;
 import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
+import static sapphire.runtime.Sapphire.new_;
 
 
 public class DetailFragment extends BaseFragment implements OnReminderPickedListener, OnTouchListener,
@@ -409,7 +410,7 @@ public class DetailFragment extends BaseFragment implements OnReminderPickedList
 		Intent i = mainActivity.getIntent();
 
 		if (IntentChecker.checkAction(i, Constants.ACTION_MERGE)) {
-			noteOriginal = new Note();
+			noteOriginal = (Note) new_(Note.class);
 			note = new Note(noteOriginal);
 			noteTmp = getArguments().getParcelable(Constants.INTENT_NOTE);
 			if (i.getStringArrayListExtra("merged_notes") != null) {

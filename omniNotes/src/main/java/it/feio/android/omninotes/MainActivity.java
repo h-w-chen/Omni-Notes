@@ -37,6 +37,7 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -59,6 +60,9 @@ import it.feio.android.omninotes.models.Note;
 import it.feio.android.omninotes.utils.Constants;
 import it.feio.android.omninotes.utils.PasswordHelper;
 import it.feio.android.omninotes.utils.SystemHelper;
+import sapphire.kernel.server.KernelServer;
+import sapphire.kernel.server.KernelServerImpl;
+import sapphire.runtime.Sapphire;
 
 
 public class MainActivity extends BaseActivity implements OnDateSetListener, OnTimeSetListener {
@@ -93,6 +97,32 @@ public class MainActivity extends BaseActivity implements OnDateSetListener, OnT
 		}
 
         new UpdaterTask(this).execute();
+
+		// NetworkOnMainThreadException!!!
+        /*
+		// start KS
+        String hardcodedArgs[] = {
+                "127.0.0.1",
+                "22345",
+                "127.0.0.1",
+                "22343"
+        };
+        // KernelServerImpl.main(hardcodedArgs);
+        try {
+            KernelServerImpl server = new KernelServerImpl(
+                    new InetSocketAddress("127.0.0.1", 22345),
+                    new InetSocketAddress("192.168.10.74", 22343));
+            KernelServer stub = (KernelServer) java.rmi.server.UnicastRemoteObject.exportObject(server, 0);
+            java.rmi.registry.Registry registry = java.rmi.registry.LocateRegistry.createRegistry(Integer.parseInt(hardcodedArgs[1]));
+            registry.rebind("SapphireKernelServer", stub);
+            KernelServerImpl.oms.registerKernelServer(
+                    new InetSocketAddress("127.0.0.1", 22345));
+            System.out.println("Server ready!");
+            server.getMemoryStatThread().start();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        */
     }
 
 
