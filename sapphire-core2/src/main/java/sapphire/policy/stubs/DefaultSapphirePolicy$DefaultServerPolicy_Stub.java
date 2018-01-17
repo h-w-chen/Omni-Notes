@@ -6,6 +6,11 @@ package sapphire.policy.stubs;
 
 
 public final class DefaultSapphirePolicy$DefaultServerPolicy_Stub extends sapphire.policy.DefaultSapphirePolicy.DefaultServerPolicy implements sapphire.kernel.common.KernelObjectStub {
+    // based on error message
+    static final long serialVersionUID = -14844358478076135L;
+            //7986814814223461357L; //2375001795308542378L
+    //-14844358478076135L
+    //-14844358478076135L
 
     sapphire.kernel.common.KernelOID $__oid = null;
     java.net.InetSocketAddress $__hostname = null;

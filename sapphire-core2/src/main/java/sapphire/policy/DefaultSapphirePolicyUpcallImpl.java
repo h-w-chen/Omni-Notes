@@ -27,6 +27,9 @@ public abstract class DefaultSapphirePolicyUpcallImpl extends SapphirePolicyLibr
 	}
 	
 	public abstract static class DefaultSapphireServerPolicyUpcallImpl extends SapphireServerPolicyLibrary {
+		// SUID:
+		static final long serialVersionUID =-5513917164073820851L;
+
 		public Object onRPC(String method, ArrayList<Object> params) throws Exception {
 			/* The default behavior is to just invoke the method on the Sapphire Object this Server Policy Object manages */
 			return appObject.invoke(method, params);

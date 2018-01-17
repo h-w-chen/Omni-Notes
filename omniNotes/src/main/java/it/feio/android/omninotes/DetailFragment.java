@@ -81,6 +81,7 @@ import it.feio.android.omninotes.async.bus.PushbulletReplyEvent;
 import it.feio.android.omninotes.async.bus.SwitchFragmentEvent;
 import it.feio.android.omninotes.async.notes.NoteProcessorDelete;
 import it.feio.android.omninotes.async.notes.SaveNoteTask;
+import it.feio.android.omninotes.cloud.AppManager;
 import it.feio.android.omninotes.db.DbHelper;
 import it.feio.android.omninotes.helpers.AttachmentsHelper;
 import it.feio.android.omninotes.helpers.PermissionsHelper;
@@ -94,6 +95,7 @@ import it.feio.android.omninotes.models.listeners.OnGeoUtilResultListener;
 import it.feio.android.omninotes.models.listeners.OnNoteSaved;
 import it.feio.android.omninotes.models.listeners.OnReminderPickedListener;
 import it.feio.android.omninotes.models.views.ExpandableHeightGridView;
+import it.feio.android.omninotes.storage.StorageManager;
 import it.feio.android.omninotes.utils.*;
 import it.feio.android.omninotes.utils.Display;
 import it.feio.android.omninotes.utils.date.DateUtils;
@@ -421,7 +423,9 @@ public class DetailFragment extends BaseFragment implements OnReminderPickedList
 		// Action called from home shortcut
 		if (IntentChecker.checkAction(i, Constants.ACTION_SHORTCUT, Constants.ACTION_NOTIFICATION_CLICK)) {
 			afterSavedReturnsToList = false;
-			noteOriginal = DbHelper.getInstance().getNote(i.getLongExtra(Constants.INTENT_KEY, 0));
+//			noteOriginal = DbHelper.getInstance().getNote(i.getLongExtra(Constants.INTENT_KEY, 0));
+			noteOriginal = AppManager.getInstance().getDbHelper().getNote(i.getLongExtra(Constants.INTENT_KEY, 0));
+
 			// Checks if the note pointed from the shortcut has been deleted
 			try {
 				note = new Note(noteOriginal);
@@ -1258,7 +1262,9 @@ public class DetailFragment extends BaseFragment implements OnReminderPickedList
 	 */
 	private void categorizeNote() {
 		// Retrieves all available categories
-		final ArrayList<Category> categories = DbHelper.getInstance().getCategories();
+		// final ArrayList<Category> categories = DbHelper.getInstance().getCategories();
+		DbHelper db = AppManager.getInstance().getDbHelper();
+		final ArrayList<Category> categories = db.getCategories();
 
 		String currentCategory = noteTmp.getCategory() != null ? String.valueOf(noteTmp.getCategory().getId()) : null;
 
@@ -1508,7 +1514,7 @@ public class DetailFragment extends BaseFragment implements OnReminderPickedList
 		if (!noteTmp.getAttachmentsList().equals(note.getAttachmentsList())) {
 			for (Attachment newAttachment : noteTmp.getAttachmentsList()) {
 				if (!note.getAttachmentsList().contains(newAttachment)) {
-					StorageHelper.delete(mainActivity, newAttachment.getUri().getPath());
+					StorageManager.Instance().delete(mainActivity, newAttachment.getUri().getPath());
 				}
 			}
 		}

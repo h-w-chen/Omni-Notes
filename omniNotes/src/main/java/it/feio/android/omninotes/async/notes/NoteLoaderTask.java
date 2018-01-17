@@ -73,7 +73,7 @@ public class NoteLoaderTask extends AsyncTask<Object, Void, ArrayList<Note>> {
 			///*
 			// start KS in device (ensure oms starts w/ proper public ip address
 			String hardcodedArgs[] = {
-					"192.168.10.109", //device ip
+					"192.168.10.154", //"192.168.10.109", //device ip
 					"22345",
 					"192.168.10.74",  //laptop ip
 					"22343"

@@ -6,6 +6,8 @@ package it.feio.android.omninotes.cloud.stubs;
 
 
 public final class AppManager_Stub extends it.feio.android.omninotes.cloud.AppManager implements sapphire.common.AppObjectStub {
+    // based on error message
+    static final long serialVersionUID = 6041335162575975673L; //87090248460165750L;
 
     sapphire.policy.SapphirePolicy.SapphireClientPolicy $__client = null;
     boolean $__directInvocation = false;

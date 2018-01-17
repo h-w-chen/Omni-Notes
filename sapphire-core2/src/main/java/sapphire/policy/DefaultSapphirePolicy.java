@@ -6,7 +6,10 @@ public class DefaultSapphirePolicy extends SapphirePolicy {
 	
 	public static class DefaultServerPolicy extends SapphireServerPolicy {
 		private DefaultGroupPolicy group;
-		
+
+		// SUID:
+		static final long serialVersionUID =7986814814223461357L;
+
 		@Override
 		public SapphireGroupPolicy getGroup() {
 			return group;
