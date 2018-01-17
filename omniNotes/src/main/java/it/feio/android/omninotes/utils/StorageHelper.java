@@ -40,7 +40,8 @@ import java.util.Calendar;
 import java.util.Locale;
 
 
-public class StorageHelper {
+public final class StorageHelper {
+    private StorageHelper() {}
 
     public static boolean checkStorage() {
         boolean mExternalStorageAvailable;

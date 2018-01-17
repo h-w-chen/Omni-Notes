@@ -34,13 +34,14 @@ import sapphire.app.SapphireObject;
 import sapphire.runtime.Sapphire;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 import java.util.regex.Pattern;
 
 import static sapphire.runtime.Sapphire.new_;
 
 
-public class DbHelper extends SQLiteOpenHelper implements SapphireObject {
+public class DbHelper extends SQLiteOpenHelper implements SapphireObject, Serializable {
 
     // Database name
     private static final String DATABASE_NAME = Constants.DATABASE_NAME;

@@ -12,6 +12,7 @@ import sapphire.kernel.common.KernelRPCException;
 
 import sapphire.kernel.common.KernelRPC;
 import sapphire.oms.OMSServer;
+import sapphire.policy.SapphirePolicy;
 
 import java.io.Serializable;
 import java.net.InetSocketAddress;
@@ -167,13 +168,38 @@ public class KernelServerImpl implements KernelServer{
 	public KernelClient getKernelClient() {
 		return client;
 	}
-		
+
+	public static class XXX implements AppObjectStub {
+		public XXX() {
+
+		}
+
+		@Override
+		public Object $__clone() throws CloneNotSupportedException {
+			return new XXX();
+		}
+
+		@Override
+		public void $__initialize(SapphirePolicy.SapphireClientPolicy client) {
+
+		}
+
+		@Override
+		public void $__initialize(boolean directInvocation) {
+
+		}
+	}
 	/**
 	 * Start the first server-side app object
 	 */
 	@Override
 	public AppObjectStub startApp(String className) throws RemoteException {
 		AppObjectStub appEntryPoint = null;
+/*
+		// dummy
+		appEntryPoint = new XXX();
+		return appEntryPoint;
+*/
 		try {
 			AppEntryPoint entryPoint =  (AppEntryPoint) Class.forName(className).newInstance();
             appEntryPoint = entryPoint.start();
@@ -182,6 +208,7 @@ public class KernelServerImpl implements KernelServer{
 			e.printStackTrace();
 		}
 		return appEntryPoint;
+		//*/
 	}
 
 	public class MemoryStatThread extends Thread {

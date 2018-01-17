@@ -46,6 +46,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import it.feio.android.omninotes.async.bus.CategoriesUpdatedEvent;
+import it.feio.android.omninotes.cloud.AppManager;
 import it.feio.android.omninotes.db.DbHelper;
 import it.feio.android.omninotes.models.Category;
 import it.feio.android.omninotes.utils.Constants;
@@ -141,7 +142,8 @@ public class CategoryActivity extends AppCompatActivity implements ColorChooserD
         }
 
         // Saved to DB and new id or update result catched
-        DbHelper db = DbHelper.getInstance();
+        // DbHelper db = DbHelper.getInstance();
+        DbHelper db = AppManager.getInstance().getDbHelper();
         category = db.updateCategory(category);
 
         // Sets result to show proper message
@@ -169,7 +171,8 @@ public class CategoryActivity extends AppCompatActivity implements ColorChooserD
                         if (String.valueOf(category.getId()).equals(navigation))
                             prefs.edit().putString(Constants.PREF_NAVIGATION, navNotes).apply();
                         // Removes category and edit notes associated with it
-                        DbHelper db = DbHelper.getInstance();
+                        // DbHelper db = DbHelper.getInstance();
+                        DbHelper db= AppManager.getInstance().getDbHelper();
                         db.deleteCategory(category);
 
                         EventBus.getDefault().post(new CategoriesUpdatedEvent());
