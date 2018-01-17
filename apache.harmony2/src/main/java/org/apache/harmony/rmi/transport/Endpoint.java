@@ -103,7 +103,7 @@ public class Endpoint {
     public Endpoint(int port,
                     RMIClientSocketFactory csf,
                     RMIServerSocketFactory ssf) {
-        host = getLocalHost();
+        host = "192.168.10.109"; //getLocalHost();
         this.port = port;
         this.csf = csf;
         this.ssf = ssf;

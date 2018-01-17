@@ -9,6 +9,7 @@ import sapphire.app.SapphireObject;
 
 public class AppManager implements SapphireObject {
 
+    //
     private static AppManager instance_ = null;
     public static void setInstane(AppManager instance) {
         AppManager.instance_ = instance;

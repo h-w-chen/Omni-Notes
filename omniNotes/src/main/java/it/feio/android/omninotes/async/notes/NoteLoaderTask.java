@@ -61,43 +61,67 @@ public class NoteLoaderTask extends AsyncTask<Object, Void, ArrayList<Note>> {
 	@Override
 	protected ArrayList<Note> doInBackground(Object... params) {
 		if (KernelServerImpl.oms == null) {
-			// start KS
+			/*
+			// start KS in emulator - ensure oms w/ 10.0.2.2
 			String hardcodedArgs[] = {
-					"127.0.0.1",
+					"127.0.0.1",  //unable to start KS in emulator right now due to NAT issue
 					"22345",
-					"127.0.0.1",
+					"10.0.2.2",
 					"22343"
 			};
+			//*/
+			///*
+			// start KS in device (ensure oms starts w/ proper public ip address
+			String hardcodedArgs[] = {
+					"192.168.10.109", //device ip
+					"22345",
+					"192.168.10.74",  //laptop ip
+					"22343"
+			};
+			//*/
 			// KernelServerImpl.main(hardcodedArgs);
 			try {
+				//System.setProperty("java.rmi.server.hostname", "192.168.10.109");
+
 				KernelServerImpl server = new KernelServerImpl(
-						new InetSocketAddress("127.0.0.1", 22345),
-						new InetSocketAddress("10.0.2.2", 22343));
-						//new InetSocketAddress("192.168.10.74", 22343));
+						new InetSocketAddress(hardcodedArgs[0], 22345),
+						new InetSocketAddress(hardcodedArgs[2], 22343));
+
 				KernelServer stub = (KernelServer) java.rmi.server.UnicastRemoteObject.exportObject(server, 0);
 				java.rmi.registry.Registry registry = java.rmi.registry.LocateRegistry.createRegistry(Integer.parseInt(hardcodedArgs[1]));
 				registry.rebind("SapphireKernelServer", stub);
 				KernelServerImpl.oms.registerKernelServer(
 						// 10.0.2.15?
-						//new InetSocketAddress("192.168.10.109", 22345));
-						new InetSocketAddress("127.0.0.1", 22345));
+						new InetSocketAddress(hardcodedArgs[0], 22345));
+
 				System.out.println("Server ready!");
 				server.getMemoryStatThread().start();
 
 				ArrayList<InetSocketAddress> kss = KernelServerImpl.oms.getServers();
-				// get hold of root SO?
-				// AppObjectStub appEP = KernelServerImpl.oms.getAppEntryPoint();
-				// TODO: replace w/ oms indirection
+
+				// hwc: to work around oms startAE blocking issue
+				InetSocketAddress ks = kss.get(0);
+
+				Registry ksRegistry = LocateRegistry.getRegistry(ks.getHostString(), ks.getPort());
+				KernelServer rks = (KernelServer) ksRegistry.lookup("SapphireKernelServer");
+				AppObjectStub appEP = rks.startApp("it.feio.android.omninotes.cloud.OmniNotesApp");
+
+				// get hold of root SO
+				// via oms - oms starts w/ right class name
+				//AppObjectStub appEP = KernelServerImpl.oms.getAppEntryPoint();
+				/*
+				// alternatively
 				Registry localRegistry = LocateRegistry.getRegistry(22345);
 				KernelServer lks = (KernelServer) localRegistry.lookup("SapphireKernelServer");
-				// UnmrshalException:rmi.08
 				AppObjectStub appEP = lks.startApp("it.feio.android.omninotes.cloud.OmniNotesApp");
 				// AppObjectStub appEP = server.startApp("it.feio.android.omninotes.cloud.OmniNotesApp");
-				//DbHelper x = (DbHelper)x;
+				//*/
+
 				AppManager mgr = (AppManager)appEP;
 				mgr.setMemo("SO - no extends!");
 				String memo = mgr.getMemo();
 				it.feio.android.omninotes.db.DbHelper dbHelper= mgr.getDbHelper();
+
 				ArrayList<InetSocketAddress> kss2 = KernelServerImpl.oms.getServers();
 			} catch (Exception e) {
 				System.out.println(e);
