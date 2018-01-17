@@ -15,4 +15,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include ':omniNotes', ':dependencies:java.rmi', ':dependencies:apache.harmony', ':sapphire-core2'
+include ':omniNotes', ':sapphire-core2', 'java.rmi2', ':apache.harmony2'

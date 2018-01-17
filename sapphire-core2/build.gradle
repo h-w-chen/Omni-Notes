@@ -3,10 +3,11 @@ apply plugin: 'java'
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'org.json:json:20171018'
-    compile project(':dependencies:java.rmi')
     testCompile 'junit:junit:4.12'
     //noinspection GradleDynamicVersion
     testCompile 'org.mockito:mockito-core:1.+'
+    implementation project(':apache.harmony2')
+    implementation project(':java.rmi2')
 }
 
 task deleteJar(type: Delete) {
