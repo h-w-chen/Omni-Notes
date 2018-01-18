@@ -28,6 +28,7 @@ import it.feio.android.omninotes.MainActivity;
 import it.feio.android.omninotes.R;
 import it.feio.android.omninotes.SettingsActivity;
 import it.feio.android.omninotes.async.bus.NavigationUpdatedEvent;
+import it.feio.android.omninotes.cloud.AppManager;
 import it.feio.android.omninotes.db.DbHelper;
 import it.feio.android.omninotes.models.Category;
 import it.feio.android.omninotes.models.ONStyle;
@@ -119,7 +120,8 @@ public class CategoryMenuTask extends AsyncTask<Void, Void, List<Category>> {
 
     private List<Category> buildCategoryMenu() {
         // Retrieves data to fill tags list
-        List<Category> categories = DbHelper.getInstance().getCategories();
+//        List<Category> categories = DbHelper.getInstance().getCategories();
+        List<Category> categories = AppManager.getStaticDbHelper().getCategories();
 
         View settings = categories.isEmpty() ? settingsView : settingsViewCat;
         if (settings == null) return categories;

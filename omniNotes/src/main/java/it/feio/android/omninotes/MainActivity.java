@@ -51,6 +51,7 @@ import it.feio.android.omninotes.async.UpdaterTask;
 import it.feio.android.omninotes.async.bus.PasswordRemovedEvent;
 import it.feio.android.omninotes.async.bus.SwitchFragmentEvent;
 import it.feio.android.omninotes.async.notes.NoteProcessorDelete;
+import it.feio.android.omninotes.cloud.AppManager;
 import it.feio.android.omninotes.db.DbHelper;
 import it.feio.android.omninotes.helpers.NotesHelper;
 import it.feio.android.omninotes.intro.IntroActivity;
@@ -352,7 +353,8 @@ public class MainActivity extends BaseActivity implements OnDateSetListener, OnT
         if (receivedIntent(i)) {
             Note note = i.getParcelableExtra(Constants.INTENT_NOTE);
             if (note == null) {
-                note = DbHelper.getInstance().getNote(i.getIntExtra(Constants.INTENT_KEY, 0));
+//                note = DbHelper.getInstance().getNote(i.getIntExtra(Constants.INTENT_KEY, 0));
+                note = AppManager.getStaticDbHelper().getNote(i.getIntExtra(Constants.INTENT_KEY, 0));
             }
             // Checks if the same note is already opened to avoid to open again
             if (note != null && noteAlreadyOpened(note)) {

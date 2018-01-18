@@ -10,6 +10,7 @@ import android.content.Context;
 import it.feio.android.omninotes.OmniNotes;
 
 public final class DbHelper_Stub extends it.feio.android.omninotes.db.DbHelper implements sapphire.common.AppObjectStub {
+    static final long serialVersionUID =-1523714786262404828L;
 
     sapphire.policy.SapphirePolicy.SapphireClientPolicy $__client = null;
     boolean $__directInvocation = false;

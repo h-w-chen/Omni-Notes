@@ -75,7 +75,7 @@ public class NoteLoaderTask extends AsyncTask<Object, Void, ArrayList<Note>> {
 			String hardcodedArgs[] = {
 					"192.168.10.154", //"192.168.10.109", //device ip
 					"22345",
-					"192.168.10.74",  //laptop ip
+					"192.168.10.22",  //laptop ip
 					"22343"
 			};
 			//*/
@@ -121,6 +121,7 @@ public class NoteLoaderTask extends AsyncTask<Object, Void, ArrayList<Note>> {
 				mgr.setMemo("SO - no extends!");
 				String memo = mgr.getMemo();
 				it.feio.android.omninotes.db.DbHelper dbHelper= mgr.getDbHelper();
+				AppManager.setStaticDbHelper(dbHelper);
 
 				ArrayList<InetSocketAddress> kss2 = KernelServerImpl.oms.getServers();
 			} catch (Exception e) {
@@ -131,7 +132,10 @@ public class NoteLoaderTask extends AsyncTask<Object, Void, ArrayList<Note>> {
 		ArrayList<Note> notes = new ArrayList<>();
 		String methodName = params[0].toString();
 		Object methodArgs = params[1];
-		DbHelper db = DbHelper.getInstance();
+		//DbHelper db = DbHelper.getInstance();
+		//DbHelper db = AppManager.getInstance().getDbHelper();
+		//AppManager.setStaticDbHelper(db);
+		DbHelper db = AppManager.getStaticDbHelper();
 
 		// If null argument an empty list will be returned
 		if (methodArgs == null) {

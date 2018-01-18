@@ -451,7 +451,8 @@ public class DetailFragment extends BaseFragment implements OnReminderPickedList
 					if (categoryId != null) {
 						Category category;
 						try {
-							category = DbHelper.getInstance().getCategory(parseLong(categoryId));
+							//category = DbHelper.getInstance().getCategory(parseLong(categoryId));
+							category = AppManager.getStaticDbHelper().getCategory(parseLong(categoryId));
 							noteTmp = new Note();
 							noteTmp.setCategory(category);
 						} catch (NumberFormatException e) {

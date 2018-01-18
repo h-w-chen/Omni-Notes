@@ -109,7 +109,8 @@ public class KernelClient {
 
 		// Check whether this object is local.
 		KernelServer server;
-		if (host.equals(GlobalKernelReferences.nodeServer.getLocalHost())) {
+		boolean isLocal = host.equals(GlobalKernelReferences.nodeServer.getLocalHost());
+		if (isLocal) {
 			server = GlobalKernelReferences.nodeServer;
 		} else {
 			server = getServer(host);

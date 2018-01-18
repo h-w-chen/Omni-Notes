@@ -6,6 +6,8 @@ package it.feio.android.omninotes.models.stubs;
 
 
 public final class Note_Stub extends it.feio.android.omninotes.models.Note implements sapphire.common.AppObjectStub {
+    // SUID
+    static final long serialVersionUID =-7612567897010931666L;
 
     sapphire.policy.SapphirePolicy.SapphireClientPolicy $__client = null;
     boolean $__directInvocation = false;

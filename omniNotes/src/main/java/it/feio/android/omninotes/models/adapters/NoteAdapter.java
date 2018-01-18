@@ -105,6 +105,7 @@ public class NoteAdapter extends ArrayAdapter<Note> implements Insertable {
 
     private void initThumbnail(Note note, NoteViewHolder holder) {
         // Attachment thumbnail
+        expandedView = false; //hardcoded for debugging purpose.
         if (expandedView) {
             // If note is locked or without attachments nothing is shown
             if ((note.isLocked() && !mActivity.getSharedPreferences(Constants.PREFS_NAME,
@@ -259,7 +260,8 @@ public class NoteAdapter extends ArrayAdapter<Note> implements Insertable {
             v.setBackgroundColor(Color.parseColor("#00000000"));
 
             // If category is set the color will be applied on the appropriate target
-            if (note.getCategory() != null && note.getCategory().getColor() != null) {
+            boolean bTemp = false; // to avoid network in main thread exception ?
+            if (bTemp && note.getCategory() != null && note.getCategory().getColor() != null) {
                 if (colorsPref.equals("complete") || colorsPref.equals("list")) {
                     v.setBackgroundColor(Integer.parseInt(note.getCategory().getColor()));
                 } else {

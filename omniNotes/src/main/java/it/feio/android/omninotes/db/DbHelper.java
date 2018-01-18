@@ -41,7 +41,7 @@ import java.util.regex.Pattern;
 import static sapphire.runtime.Sapphire.new_;
 
 
-public class DbHelper extends SQLiteOpenHelper implements SapphireObject, Serializable {
+public class DbHelper extends NADummy implements SapphireObject, Serializable {
 
     // Database name
     private static final String DATABASE_NAME = Constants.DATABASE_NAME;
@@ -96,10 +96,10 @@ public class DbHelper extends SQLiteOpenHelper implements SapphireObject, Serial
 
 
     private final Context mContext;
-    private final SharedPreferences prefs;
+    transient private final SharedPreferences prefs;
 
     private static DbHelper instance = null;
-	private SQLiteDatabase db;
+	transient private SQLiteDatabase db;
 
 
 	public static synchronized DbHelper getInstance() {

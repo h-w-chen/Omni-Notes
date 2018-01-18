@@ -40,16 +40,18 @@ import org.acra.annotation.ReportsCrashes;
 import org.acra.sender.HttpSender.Method;
 import org.acra.sender.HttpSender.Type;
 
+import java.io.Serializable;
+
 
 @ReportsCrashes(httpMethod = Method.POST, reportType = Type.FORM, formUri = BuildConfig.CRASH_REPORTING_URL, mode =
 		ReportingInteractionMode.TOAST, forceCloseDialogAfterToast = false, resToastText = R.string.crash_toast)
-public class OmniNotes extends MultiDexApplication {
+public class OmniNotes extends MultiDexApplication implements Serializable {
 
-	private static Context mContext;
+	transient private static Context mContext;
 
-	static SharedPreferences prefs;
-	private static RefWatcher refWatcher;
-	private AnalyticsHelper analyticsHelper;
+	transient static SharedPreferences prefs;
+	transient private static RefWatcher refWatcher;
+	transient private AnalyticsHelper analyticsHelper;
 
 	@Override
 	public void onCreate() {

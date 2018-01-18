@@ -18,6 +18,11 @@ public class AppManager implements SapphireObject {
         return AppManager.instance_;
     }
 
+    // TODO: to make it class level members
+    private static DbHelper dbHelper = null;
+    public static void setStaticDbHelper(DbHelper dbHelper) {AppManager.dbHelper = dbHelper;}
+    public static DbHelper getStaticDbHelper() { return AppManager.dbHelper; }
+
     private String memo;
 
     public void setMemo(String content) {

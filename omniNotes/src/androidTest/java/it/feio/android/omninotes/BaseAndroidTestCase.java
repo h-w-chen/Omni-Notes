@@ -50,7 +50,7 @@ public class BaseAndroidTestCase extends AndroidTestCase {
 
     @Override
     protected void tearDown() throws Exception {
-        testContext.deleteDatabase(DbHelper.getInstance().getDatabaseName());
+       //  testContext.deleteDatabase(DbHelper.getInstance().getDatabaseName());
         super.tearDown();
     }
 
