@@ -189,8 +189,12 @@ public class Sapphire {
 		// Replace all superclass fields with null
 		Field[] fields = obj.getClass().getSuperclass().getFields();
 		for (Field f : fields) {
-			f.setAccessible(true);
-			f.set(obj, null);
+			try {
+				f.setAccessible(true);
+				f.set(obj, null);
+			}catch (Exception e){
+				// fine to leave alone the default value if unable to set null
+			}
 		}
 
 		// Replace the values in stub with new values - is this necessary?
