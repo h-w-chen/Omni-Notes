@@ -51,6 +51,8 @@ import it.feio.android.omninotes.async.bus.PasswordRemovedEvent;
 import it.feio.android.omninotes.async.bus.SwitchFragmentEvent;
 import it.feio.android.omninotes.async.notes.NoteProcessorDelete;
 import it.feio.android.omninotes.db.DbHelper;
+import it.feio.android.omninotes.dcap.InitializationTask;
+import it.feio.android.omninotes.dcap.InitializedEvent;
 import it.feio.android.omninotes.helpers.NotesHelper;
 import it.feio.android.omninotes.intro.IntroActivity;
 import it.feio.android.omninotes.models.Attachment;
@@ -103,6 +105,11 @@ public class MainActivity extends BaseActivity implements OnDateSetListener, OnT
 	}
 
 
+    public void onEvent(InitializedEvent dcapInit) {
+        this.init_all();
+    }
+
+
 	private void initUI() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -131,7 +138,14 @@ public class MainActivity extends BaseActivity implements OnDateSetListener, OnT
 	}
 
 
-	private void init() {
+    private void init() {
+        // todo: get value from pref setting
+        boolean isServerMode = true;
+        new InitializationTask().execute(isServerMode);
+    }
+
+
+    private void init_all() {
         mFragmentManager = getSupportFragmentManager();
 
         NavigationDrawerFragment mNavigationDrawerFragment = (NavigationDrawerFragment) mFragmentManager
