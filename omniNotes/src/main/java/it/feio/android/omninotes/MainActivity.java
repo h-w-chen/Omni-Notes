@@ -51,8 +51,10 @@ import it.feio.android.omninotes.async.bus.PasswordRemovedEvent;
 import it.feio.android.omninotes.async.bus.SwitchFragmentEvent;
 import it.feio.android.omninotes.async.notes.NoteProcessorDelete;
 import it.feio.android.omninotes.db.DbHelper;
+import it.feio.android.omninotes.dcap.DCAPRoot;
 import it.feio.android.omninotes.dcap.InitializationTask;
 import it.feio.android.omninotes.dcap.InitializedEvent;
+import it.feio.android.omninotes.dcap.OmniNotesManager;
 import it.feio.android.omninotes.helpers.NotesHelper;
 import it.feio.android.omninotes.intro.IntroActivity;
 import it.feio.android.omninotes.models.Attachment;
@@ -106,6 +108,8 @@ public class MainActivity extends BaseActivity implements OnDateSetListener, OnT
 
 
     public void onEvent(InitializedEvent dcapInit) {
+        OmniNotesManager omniNotesManager = (OmniNotesManager)dcapInit.getAppEntryPoint();
+        DCAPRoot.setInstance(omniNotesManager);
         this.init_all();
     }
 

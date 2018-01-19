@@ -5,24 +5,29 @@ import android.os.AsyncTask;
 import java.net.InetSocketAddress;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.ArrayList;
 
 import de.greenrobot.event.EventBus;
+import sapphire.common.AppObjectStub;
 import sapphire.kernel.server.KernelServer;
 import sapphire.kernel.server.KernelServerImpl;
 import sapphire.oms.OMSServer;
+import sapphire.runtime.Sapphire;
 
 /**
  * Created by howell on 1/18/18.
  */
 
-public class InitializationTask extends AsyncTask<Boolean, Void, KernelServerImpl> {
+public class InitializationTask extends AsyncTask<Boolean, Void, AppObjectStub> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
     }
 
     @Override
-    protected KernelServerImpl doInBackground(Boolean... args) {
+    protected AppObjectStub doInBackground(Boolean... args) {
         boolean isServerMode = args[0];
 
         // todo: remove hard coded ip addresses
@@ -43,7 +48,21 @@ public class InitializationTask extends AsyncTask<Boolean, Void, KernelServerImp
             }
         }
 
-        return kernelServer;
+        AppObjectStub appEP = null;
+        try {
+            //todo: get AppEntry via oms
+            //AppObjectStub appEP = KernelServerImpl.oms.getAppEntryPoint();
+
+            Registry localRegistry = LocateRegistry.getRegistry(22345);
+            KernelServer lks = (KernelServer) localRegistry.lookup("SapphireKernelServer");
+            appEP = lks.startApp("it.feio.android.omninotes.dcap.App");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (NotBoundException e) {
+            e.printStackTrace();
+        }
+
+        return appEP;
     }
 
     private void initKernelServer(KernelServer kernelServer, InetSocketAddress kernelAddr) throws RemoteException, NotBoundException {
@@ -55,7 +74,7 @@ public class InitializationTask extends AsyncTask<Boolean, Void, KernelServerImp
     }
 
     @Override
-    protected void onPostExecute(KernelServerImpl o) {
+    protected void onPostExecute(AppObjectStub o) {
         //todo: handle null - exception error
         super.onPostExecute(o);
         EventBus.getDefault().post(new InitializedEvent(o));

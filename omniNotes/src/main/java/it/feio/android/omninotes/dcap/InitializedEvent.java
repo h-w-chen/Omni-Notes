@@ -1,16 +1,19 @@
 package it.feio.android.omninotes.dcap;
 
-import sapphire.kernel.server.KernelServerImpl;
-import sapphire.oms.OMSServer;
+import sapphire.common.AppObjectStub;
 
 /**
  * Created by howell on 1/18/18.
  */
 
 public class InitializedEvent {
-    private KernelServerImpl kernelServer;
+    private AppObjectStub appEntryPoint;
 
-    public InitializedEvent(KernelServerImpl kernelServer) {
-        this.kernelServer = kernelServer;
+    public InitializedEvent(AppObjectStub appEntryPoint) {
+        this.appEntryPoint  = appEntryPoint;
+    }
+
+    public AppObjectStub getAppEntryPoint() {
+        return appEntryPoint;
     }
 }
