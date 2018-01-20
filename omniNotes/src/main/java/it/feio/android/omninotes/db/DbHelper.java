@@ -30,13 +30,14 @@ import it.feio.android.omninotes.OmniNotes;
 import it.feio.android.omninotes.async.upgrade.UpgradeProcessor;
 import it.feio.android.omninotes.models.*;
 import it.feio.android.omninotes.utils.*;
+import sapphire.app.SapphireObject;
 
 import java.io.IOException;
 import java.util.*;
 import java.util.regex.Pattern;
 
 
-public class DbHelper extends SQLiteOpenHelper {
+public class DbHelper extends SQLiteOpenHelper implements SapphireObject{
 
     // Database name
     private static final String DATABASE_NAME = Constants.DATABASE_NAME;
