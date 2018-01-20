@@ -1,5 +1,6 @@
 package it.feio.android.omninotes.dcap;
 
+import it.feio.android.omninotes.db.DbHelper;
 import sapphire.app.SapphireObject;
 
 /**
@@ -7,4 +8,7 @@ import sapphire.app.SapphireObject;
  */
 
 public class OmniNotesManager implements SapphireObject {
+    public DbHelper getDbHelper(){
+        return DbHelper.getInstance();
+    }
 }

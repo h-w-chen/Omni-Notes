@@ -28,4 +28,21 @@ public final class OmniNotesManager_Stub extends it.feio.android.omninotes.dcap.
     }
 
 
+
+    // Implementation of getDbHelper()
+    public it.feio.android.omninotes.db.DbHelper getDbHelper() {
+        java.lang.Object $__result = null;
+        try {
+            if ($__directInvocation)
+                $__result = super.getDbHelper();
+            else {
+                java.util.ArrayList<Object> $__params = new java.util.ArrayList<Object>();
+                String $__method = "public it.feio.android.omninotes.db.DbHelper it.feio.android.omninotes.dcap.OmniNotesManager.getDbHelper()";
+                $__result = $__client.onRPC($__method, $__params);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ((it.feio.android.omninotes.db.DbHelper) $__result);
+    }
 }
