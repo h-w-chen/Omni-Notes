@@ -110,7 +110,7 @@ public class DbHelper extends SQLiteOpenHelper implements SapphireObject{
     }
 
 
-    private DbHelper(Context mContext) {
+    public DbHelper(Context mContext) {
         super(mContext, DATABASE_NAME, null, DATABASE_VERSION);
         this.mContext = mContext;
         this.prefs = mContext.getSharedPreferences(Constants.PREFS_NAME, Context.MODE_MULTI_PROCESS);

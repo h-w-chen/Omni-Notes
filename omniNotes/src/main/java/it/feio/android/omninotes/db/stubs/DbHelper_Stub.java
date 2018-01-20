@@ -10,6 +10,10 @@ public final class DbHelper_Stub extends it.feio.android.omninotes.db.DbHelper i
     sapphire.policy.SapphirePolicy.SapphireClientPolicy $__client = null;
     boolean $__directInvocation = false;
 
+    public DbHelper_Stub (android.content.Context $param_Context_1) {
+        super($param_Context_1);
+    }
+
 
     public void $__initialize(sapphire.policy.SapphirePolicy.SapphireClientPolicy client) {
         $__client = client;
@@ -540,41 +544,7 @@ public final class DbHelper_Stub extends it.feio.android.omninotes.db.DbHelper i
         }
         return ((java.util.List) $__result);
     }
-
-    // Implementation of getInstance(Context)
-    public it.feio.android.omninotes.db.DbHelper getInstance(android.content.Context $param_Context_1) {
-        java.lang.Object $__result = null;
-        try {
-            if ($__directInvocation)
-                $__result = super.getInstance( $param_Context_1);
-            else {
-                java.util.ArrayList<Object> $__params = new java.util.ArrayList<Object>();
-                String $__method = "public static synchronized it.feio.android.omninotes.db.DbHelper it.feio.android.omninotes.db.DbHelper.getInstance(android.content.Context)";
-                $__params.add($param_Context_1);
-                $__result = $__client.onRPC($__method, $__params);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ((it.feio.android.omninotes.db.DbHelper) $__result);
-    }
-
-    // Implementation of getInstance()
-    public it.feio.android.omninotes.db.DbHelper getInstance() {
-        java.lang.Object $__result = null;
-        try {
-            if ($__directInvocation)
-                $__result = super.getInstance();
-            else {
-                java.util.ArrayList<Object> $__params = new java.util.ArrayList<Object>();
-                String $__method = "public static synchronized it.feio.android.omninotes.db.DbHelper it.feio.android.omninotes.db.DbHelper.getInstance()";
-                $__result = $__client.onRPC($__method, $__params);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ((it.feio.android.omninotes.db.DbHelper) $__result);
-    }
+    
 
     // Implementation of getDatabaseName()
     public java.lang.String getDatabaseName() {
