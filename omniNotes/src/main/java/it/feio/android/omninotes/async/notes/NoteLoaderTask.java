@@ -17,6 +17,7 @@
 package it.feio.android.omninotes.async.notes;
 
 import android.os.AsyncTask;
+import android.os.StrictMode;
 import android.util.Log;
 import de.greenrobot.event.EventBus;
 import it.feio.android.checklistview.App;
@@ -61,6 +62,8 @@ public class NoteLoaderTask extends AsyncTask<Object, Void, ArrayList<Note>> {
 	@Override
 	protected ArrayList<Note> doInBackground(Object... params) {
 		if (KernelServerImpl.oms == null) {
+			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+			StrictMode.setThreadPolicy(policy);
 			/*
 			// start KS in emulator - ensure oms w/ 10.0.2.2
 			String hardcodedArgs[] = {
@@ -122,6 +125,7 @@ public class NoteLoaderTask extends AsyncTask<Object, Void, ArrayList<Note>> {
 				String memo = mgr.getMemo();
 				it.feio.android.omninotes.db.DbHelper dbHelper= mgr.getDbHelper();
 				AppManager.setStaticDbHelper(dbHelper);
+				//DbHelper.setInstance(dbHelper);
 
 				ArrayList<InetSocketAddress> kss2 = KernelServerImpl.oms.getServers();
 			} catch (Exception e) {

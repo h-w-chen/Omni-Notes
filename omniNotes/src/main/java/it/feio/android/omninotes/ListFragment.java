@@ -33,6 +33,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Parcelable;
+import android.os.StrictMode;
 import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -175,6 +176,9 @@ public class ListFragment extends BaseFragment implements OnViewTouchedListener,
         mFragment = this;
         setHasOptionsMenu(true);
         setRetainInstance(false);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
     }
 
 
@@ -518,7 +522,10 @@ public class ListFragment extends BaseFragment implements OnViewTouchedListener,
      * Retrieves from the single listview note item the element to be zoomed when opening a note
      */
     private ImageView getZoomListItemView(View view, Note note) {
-        if (expandedImageView != null) {
+        // note: force not calling into getAttachmentsList()
+        Boolean notByPass = false;
+
+        if (notByPass && expandedImageView != null) {
             View targetView = null;
             if (note.getAttachmentsList().size() > 0) {
                 targetView = view.findViewById(R.id.attachmentThumbnail);
@@ -885,13 +892,21 @@ public class ListFragment extends BaseFragment implements OnViewTouchedListener,
             PasswordHelper.requestPassword(mainActivity, passwordConfirmed -> {
 				if (passwordConfirmed) {
 					note.setPasswordChecked(true);
-					AnimationsHelper.zoomListItem(mainActivity, view, getZoomListItemView(view, note),
-							listRoot, buildAnimatorListenerAdapter(note));
+                    ImageView imgView = getZoomListItemView(view, note);
+					AnimationsHelper.zoomListItem(mainActivity,
+                            view,
+                            imgView,
+							listRoot,
+                            buildAnimatorListenerAdapter(note));
 				}
 			});
         } else {
-            AnimationsHelper.zoomListItem(mainActivity, view, getZoomListItemView(view, note),
-					listRoot, buildAnimatorListenerAdapter(note));
+            ImageView imgView = getZoomListItemView(view, note);
+            AnimationsHelper.zoomListItem(mainActivity,
+                    view,
+                    imgView,
+					listRoot,
+                    buildAnimatorListenerAdapter(note));
         }
     }
 
