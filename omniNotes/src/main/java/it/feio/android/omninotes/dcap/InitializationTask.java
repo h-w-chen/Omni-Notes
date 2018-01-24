@@ -10,6 +10,7 @@ import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
 import de.greenrobot.event.EventBus;
+import it.feio.android.omninotes.db.DbHelper;
 import sapphire.common.AppObjectStub;
 import sapphire.kernel.server.KernelServer;
 import sapphire.kernel.server.KernelServerImpl;
@@ -61,6 +62,10 @@ public class InitializationTask extends AsyncTask<Boolean, Void, AppObjectStub> 
         } catch (NotBoundException e) {
             e.printStackTrace();
         }
+
+        OmniNotesManager mgr = (OmniNotesManager)appEP;
+        DbHelper db = mgr.getDbHelper();
+        DbHelper.setInstance(db);
 
         return appEP;
     }

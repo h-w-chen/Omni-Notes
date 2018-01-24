@@ -5,6 +5,8 @@
 package it.feio.android.omninotes.db.stubs;
 
 
+import it.feio.android.omninotes.OmniNotes;
+
 public final class DbHelper_Stub extends it.feio.android.omninotes.db.DbHelper implements sapphire.common.AppObjectStub {
 
     sapphire.policy.SapphirePolicy.SapphireClientPolicy $__client = null;
@@ -14,6 +16,10 @@ public final class DbHelper_Stub extends it.feio.android.omninotes.db.DbHelper i
         super($param_Context_1);
     }
 
+    // manual patch to app stub generator, needed for every derived class of Context?
+    public DbHelper_Stub (OmniNotes $param_Context_1) {
+        super($param_Context_1);
+    }
 
     public void $__initialize(sapphire.policy.SapphirePolicy.SapphireClientPolicy client) {
         $__client = client;
@@ -544,7 +550,7 @@ public final class DbHelper_Stub extends it.feio.android.omninotes.db.DbHelper i
         }
         return ((java.util.List) $__result);
     }
-    
+
 
     // Implementation of getDatabaseName()
     public java.lang.String getDatabaseName() {

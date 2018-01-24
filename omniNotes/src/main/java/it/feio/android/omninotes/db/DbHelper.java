@@ -31,6 +31,7 @@ import it.feio.android.omninotes.async.upgrade.UpgradeProcessor;
 import it.feio.android.omninotes.models.*;
 import it.feio.android.omninotes.utils.*;
 import sapphire.app.SapphireObject;
+import sapphire.runtime.Sapphire;
 
 import java.io.IOException;
 import java.util.*;
@@ -104,11 +105,16 @@ public class DbHelper extends SQLiteOpenHelper implements SapphireObject{
 
 	public static synchronized DbHelper getInstance(Context context) {
         if (instance == null) {
-            instance = new DbHelper(context);
+            instance = (DbHelper) Sapphire.new_(DbHelper.class, context);
         }
         return instance;
     }
 
+    // sort of breach of singleton
+    public static void setInstance(DbHelper dbHelper){
+	    // no-op for SO host
+	    DbHelper.instance = dbHelper;
+    }
 
     public DbHelper(Context mContext) {
         super(mContext, DATABASE_NAME, null, DATABASE_VERSION);
