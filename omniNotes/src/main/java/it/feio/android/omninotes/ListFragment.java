@@ -85,6 +85,7 @@ import it.feio.android.omninotes.async.notes.NoteProcessorArchive;
 import it.feio.android.omninotes.async.notes.NoteProcessorCategorize;
 import it.feio.android.omninotes.async.notes.NoteProcessorDelete;
 import it.feio.android.omninotes.async.notes.NoteProcessorTrash;
+import it.feio.android.omninotes.cloud.AppManager;
 import it.feio.android.omninotes.db.DbHelper;
 import it.feio.android.omninotes.helpers.NotesHelper;
 import it.feio.android.omninotes.models.Category;
@@ -920,7 +921,11 @@ public class ListFragment extends BaseFragment implements OnViewTouchedListener,
                 if (Navigation.checkNavigation(Navigation.CATEGORY) || !TextUtils.isEmpty(mainActivity.navigationTmp)) {
 					String categoryId = (String) ObjectUtils.defaultIfNull(mainActivity.navigationTmp,
 							Navigation.getCategory().toString());
-					note.setCategory(DbHelper.getInstance().getCategory(Long.parseLong(categoryId)));
+
+                    //note.setCategory(DbHelper.getInstance().getCategory(Long.parseLong(categoryId)));
+					DbHelper dbHelper = AppManager.getStaticDbHelper();
+					Category category = dbHelper.getCategory(Long.parseLong(categoryId));
+					note.setCategory(category);
                 }
             } catch (NumberFormatException e) {
                 Log.v(Constants.TAG, "Maybe was not a category!");
